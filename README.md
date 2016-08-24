@@ -2,7 +2,7 @@
 
 Lock a "timepoint" from further editing once data is cleaned and reviewed
 
-With module `edc_timepoint` a data manager or supervisor is able to flags a model instance, that represents a timepoint, as closed to further edit. 
+With module `edc_timepoint` a data manager or supervisor is able to flag a model instance, that represents a timepoint, as closed to further edit. A good candidate for a "timepoint" model is one that is used to cover other data collection, such as an appointment. An appointment can be referred to by forms for all data collected during the appointment. If the appointment is closed to further edit so are all the data collected during that appointment. 
 
 
 ### Install
