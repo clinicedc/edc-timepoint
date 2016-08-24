@@ -31,7 +31,7 @@ Select a model that represent a timepoint. The model should at least have a date
         class Meta:
             app_label = 'example'
 
-The `TimepointStatusMixin` adds fields and methods prefixed as `timepoint_<something>`. There is also a signal that is loaded in the `AppConfig.ready` that resets the timepoint attributes should the `Appointment` status change from `closed`. 
+The `TimepointStatusMixin` adds fields and methods prefixed as `timepoint_<something>`. There is also a signal that is loaded in the `AppConfig.ready` that resets the timepoint attributes should the `Appointment` status change from `closed`. Only field `timepoint_status` is meant to be edited by the user.
 
 In your projects `apps.py` subclass `edc_timepoint.apps.AppConfig` and declare `Appointment` as a timepoint model in the `timepoint_models` attribute:
 
