@@ -36,12 +36,12 @@ The `TimepointStatusMixin` adds fields and methods prefixed as `timepoint_<somet
 In your projects `apps.py` subclass `edc_timepoint.apps.AppConfig` and declare `Appointment` as a timepoint model in the `timepoint_models` attribute:
 
     from django.apps import AppConfig as DjangoAppConfig
-    from edc_timepoint_status.apps import AppConfig as EdcTimepointStatusAppConfigParent
+    from edc_timepoint.apps import AppConfig as EdcTimepointAppConfigParent
     
     class AppConfig(DjangoAppConfig):
         name = 'example'
     
-    class EdcTimepointStatusAppConfig(EdcTimepointStatusAppConfigParent):
+    class EdcTimepointAppConfig(EdcTimepointAppConfigParent):
         timepoint_models = {
             'example.appointment': {
                 'datetime_field': 'appt_datetime',  # the datetime field
