@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'edc_base.apps.AppConfig'
     'edc_protocol.apps.AppConfig'
+    'edc_timpoint.apps.AppConfig',
     'example.apps.AppConfig',
 ]
 
