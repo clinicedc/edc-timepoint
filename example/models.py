@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
-from edc_base.model.models.base_uuid_model import BaseUuidModel
+from edc_base.model_mixins import BaseUuidModel
 from edc_timepoint.model_mixins import TimepointModelMixin, TimepointLookupModelMixin
 from edc_timepoint.timepoint_lookup import TimepointLookup
 
@@ -36,7 +36,8 @@ class Visit(BaseUuidModel, models.Model):
 
 class CrfModel(TimepointLookupModelMixin, BaseUuidModel):
 
-    timepoint_lookup = TimepointLookup('example.examplemodel', 'visit__example_model__timepoint_status')
+    timepoint_lookup = TimepointLookup(
+        'example.examplemodel', 'visit__example_model__timepoint_status')
 
     visit = models.ForeignKey(Visit)
 
