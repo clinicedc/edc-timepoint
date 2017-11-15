@@ -68,20 +68,20 @@ The `Appointment` may be re-opened for edit by calling method `timepoint_open_ti
 
 Continuing with the example above where `Appointment` is the timepoint model.
 
-To prevent further edits to models under the appointment, use the `TimepointLookupMixin` and the `TimepointLookup` class on models that need to refer to the timepoint model on `save`. For example:
+To prevent further edits to models related to `Appointment`, configure the model with the `TimepointLookupModelMixin` and the `TimepointLookup` class. These models will refer to the timepoint model on `save`.
 
-Declare the lookup class on the model using the `TimepointLookupModelMixin`:
+For example:
+
+    class VisitTimepointLookup(TimepointLookup):
+        timepoint_related_model_lookup = 'appointment'
 
     class VisitModel(TimepointLookupModelMixin, BaseUuidModel):
     
-        timepoint_lookup = TimepointLookup('example.appointment', 'appointment__timepoint_status')
+        timepoint_lookup_cls = VisitTimepointLookup
     
         appointment = models.ForeignKey(Appointment)
     
         report_datetime = models.DateTimeField(
             default=timezone.now)
-    
-        class Meta:
-            app_label = 'example'
- 
-If the timepoint is closed and any attempt is made to create or modify `VisitModel`, a `TimepointError` will be raised.
+     
+If the timepoint model's `timepoint_status` is `closed`, any attempt to create or modify `VisitModel` will raise a `TimepointClosed` exception. 
