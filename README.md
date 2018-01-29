@@ -2,7 +2,7 @@
 
 Lock a "timepoint" from further editing once data is cleaned and reviewed
 
-With module `edc_timepoint` a data manager or supervisor is able to flag a model instance, that represents a timepoint, as closed to further edit. A good candidate for a "timepoint" model is one that is used to cover other data collection, such as an appointment. An appointment can be referred to by forms for all data collected during the appointment. If the appointment is closed to further edit so are all the data collected during that appointment. 
+With module `edc_timepoint` a data manager or supervisor is able to flag a model instance, that represents a timepoint, as closed to further edit. A good candidate for a "timepoint" model is one that is used to cover other data collection, such as an `edc_appointment.Appointment`. When the appointment status is set to something like 'complete' the timepoint status is set to `closed` and no further edits are allowed for data covered by that appointment. 
 
 
 ### Install
@@ -13,13 +13,8 @@ With module `edc_timepoint` a data manager or supervisor is able to flag a model
     
     
 #### Configuring the Timepoint Model
-Select a model that represent a timepoint. The model should at least have a datetime field and a `status` field. For example `Appointment`:
 
-    APPT_STATUS = (
-        ('NEW', 'New'),
-        ('IN_PROGRESS', 'In progress'),
-        ('DONE', 'Done'),
-    )
+Select a model that represent a timepoint. The model should at least have a `datetime` field and a `status` field. For example `Appointment`:
 
     class Appointment(TimepointModelMixin, BaseUuidModel):
     
@@ -31,8 +26,6 @@ Select a model that represent a timepoint. The model should at least have a date
             choices=APPT_STATUS,
             max_length=25,
             default='NEW')
-        class Meta:
-            app_label = 'example'
 
 The `TimepointModelMixin` adds fields and methods prefixed as `timepoint_<something>`. There is also a signal that is loaded in the `AppConfig.ready` that resets the timepoint attributes should `Appointment.appt_status` change from `DONE`.
 
@@ -50,13 +43,12 @@ In your projects `apps.py` subclass `edc_timepoint.apps.AppConfig` and declare `
         name = 'example'
     
     class EdcTimepointAppConfig(EdcTimepointAppConfigParent):
-        timepoints = [
-            Timepoint(
+        timepoints = TimepointCollection(
+            timepoints=[Timepoint(
                 model='example.appointment',
                 datetime_field='appt_datetime',
                 status_field='appt_status',
-                closed_status='DONE')
-        ]
+                closed_status='DONE')])
         
 The user updates the `Appointment` normally closing it when the appointment is done. Then a data manager or supervisor can close the `Appointment` to further edit once the data has been reviewed.
 
@@ -76,20 +68,20 @@ The `Appointment` may be re-opened for edit by calling method `timepoint_open_ti
 
 Continuing with the example above where `Appointment` is the timepoint model.
 
-To prevent further edits to models under the appointment, use the `TimepointLookupMixin` and the `TimepointLookup` class on models that need to refer to the timepoint model on `save`. For example:
+To prevent further edits to models related to `Appointment`, configure the model with the `TimepointLookupModelMixin` and the `TimepointLookup` class. These models will refer to the timepoint model on `save`.
 
-Declare the lookup class on the model using the `TimepointLookupModelMixin`:
+For example:
+
+    class VisitTimepointLookup(TimepointLookup):
+        timepoint_related_model_lookup = 'appointment'
 
     class VisitModel(TimepointLookupModelMixin, BaseUuidModel):
     
-        timepoint_lookup = TimepointLookup('example.appointment', 'appointment__timepoint_status')
+        timepoint_lookup_cls = VisitTimepointLookup
     
         appointment = models.ForeignKey(Appointment)
     
         report_datetime = models.DateTimeField(
             default=timezone.now)
-    
-        class Meta:
-            app_label = 'example'
- 
-If the timepoint is closed and any attempt is made to create or modify `VisitModel`, a `TimepointError` will be raised.
+     
+If the timepoint model's `timepoint_status` is `closed`, any attempt to create or modify `VisitModel` will raise a `TimepointClosed` exception. 
