@@ -5,14 +5,7 @@ Lock a "timepoint" from further editing once data is cleaned and reviewed
 With module `edc_timepoint` a data manager or supervisor is able to flag a model instance, that represents a timepoint, as closed to further edit. A good candidate for a "timepoint" model is one that is used to cover other data collection, such as an `edc_appointment.Appointment`. When the appointment status is set to something like 'complete' the timepoint status is set to `closed` and no further edits are allowed for data covered by that appointment. 
 
 
-### Install
-
-    pip install git+https://github.com/clinicedc/edc-timepoint@develop#egg=edc-timepoint
-    
-### Usage
-    
-    
-#### Configuring the Timepoint Model
+### Configuring the Timepoint Model
 
 Select a model that represent a timepoint. The model should at least have a `datetime` field and a `status` field. For example `Appointment`:
 
@@ -64,7 +57,7 @@ If the appointment is successfully closed to further edit, any attempts to call 
 
 The `Appointment` may be re-opened for edit by calling method `timepoint_open_timepoint`.
 
-#### Configuring others to use the Timepoint Model
+### Configuring others to use the Timepoint Model
 
 Continuing with the example above where `Appointment` is the timepoint model.
 
