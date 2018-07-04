@@ -1,6 +1,9 @@
 language: python
 python:
 - 3.6
+addons:
+  apt_packages:
+     - libcups2-dev
 services:
 - mysql
 branches:
