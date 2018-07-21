@@ -1,6 +1,1 @@
-include AUTHORS CHANGES README.md LICENCE
-recursive-include edc_timepoint/templates *
-recursive-include edc_timepoint/static *
-recursive-include docs *
-recursive-exclude edc_example/*
-recursive-exclude etc/*
+include AUTHORS CHANGES README LICENCE VERSION
