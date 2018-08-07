@@ -1,3 +1,5 @@
 edc-base
+edc-locator
+edc-identifier
 edc-visit-tracking
 edc-visit-schedule
