@@ -25,6 +25,9 @@ setup(
     long_description=README,
     zip_safe=False,
     keywords='django timepoint research protocol EDC',
+    install_requires=[
+        'edc-appointment',
+    ],
     classifiers=[
         'Environment :: Web Environment',
         'Framework :: Django',
