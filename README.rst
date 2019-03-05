@@ -1,3 +1,5 @@
+|pypi| |travis| |codecov| |downloads|
+
 edc-timepoint
 -------------
 
@@ -90,3 +92,17 @@ For example:
             default=timezone.now)
 
 If the timepoint model's ``timepoint_status`` is ``closed``, any attempt to create or modify ``VisitModel`` will raise a ``TimepointClosed`` exception. 
+
+
+
+.. |pypi| image:: https://img.shields.io/pypi/v/edc-timepoint.svg
+    :target: https://pypi.python.org/pypi/edc-timepoint
+    
+.. |travis| image:: https://travis-ci.com/clinicedc/edc-timepoint.svg?branch=develop
+    :target: https://travis-ci.com/clinicedc/edc-timepoint
+    
+.. |codecov| image:: https://codecov.io/gh/clinicedc/edc-timepoint/branch/develop/graph/badge.svg
+  :target: https://codecov.io/gh/clinicedc/edc-timepoint
+
+.. |downloads| image:: https://pepy.tech/badge/edc-timepoint
+   :target: https://pepy.tech/project/edc-timepoint
