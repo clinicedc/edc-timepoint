@@ -89,6 +89,12 @@ DEFAULT_SETTINGS = dict(
 
     APP_NAME=app_name,
     EDC_BOOTSTRAP=3,
+    COUNTRY='botswana',
+    HOLIDAY_FILE=join(base_dir, app_name, 'tests', 'holidays.csv'),
+    DASHBOARD_URL_NAMES={
+        'subject_listboard_url': 'edc_subject_dashboard:subject_listboard_url',
+        'subject_dashboard_url': 'edc_subject_dashboard:subject_dashboard_url',
+    },
 
     DEFAULT_FILE_STORAGE='inmemorystorage.InMemoryStorage',
     MIGRATION_MODULES=DisableMigrations(),
