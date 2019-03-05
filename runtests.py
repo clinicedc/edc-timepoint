@@ -21,17 +21,26 @@ base_dir = dirname(abspath(__file__))
 app_name = 'edc_timepoint'
 
 installed_apps = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.sites',
-    'edc_device.apps.AppConfig',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "django.contrib.sites",
+    "django_crypto_fields.apps.AppConfig",
+    "django_revision.apps.AppConfig",
+    "edc_base.apps.AppConfig",
+    "edc_device.apps.AppConfig",
     "edc_appointment.apps.AppConfig",
     "edc_offstudy.apps.AppConfig",
-    'edc_timepoint.apps.AppConfig',
+    "edc_visit_schedule.apps.AppConfig",
+    "edc_protocol.apps.AppConfig",
+    "edc_metadata.apps.AppConfig",
+    "edc_registration.apps.AppConfig",
+    "edc_identifier.apps.AppConfig",
+    "edc_timepoint.apps.EdcFacilityAppConfig",
+    "edc_timepoint.apps.AppConfig",
 ]
 
 DEFAULT_SETTINGS = dict(
