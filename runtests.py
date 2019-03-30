@@ -18,6 +18,7 @@ DEFAULT_SETTINGS = DefaultTestSettings(
     BASE_DIR=base_dir,
     APP_NAME=app_name,
     ETC_DIR=os.path.join(base_dir, app_name, "tests", "etc"),
+    SUBJECT_VISIT_MODEL='edc_timepoint.subjectvisit',
     INSTALLED_APPS=[
         "django.contrib.admin",
         "django.contrib.auth",
@@ -34,12 +35,14 @@ DEFAULT_SETTINGS = DefaultTestSettings(
         "edc_offstudy.apps.AppConfig",
         "edc_visit_schedule.apps.AppConfig",
         "edc_protocol.apps.AppConfig",
+        "edc_consent.apps.AppConfig",
         "edc_metadata.apps.AppConfig",
         "edc_registration.apps.AppConfig",
         "edc_identifier.apps.AppConfig",
         "edc_timepoint.apps.EdcFacilityAppConfig",
         "edc_timepoint.apps.AppConfig",
     ],
+    add_dashboard_middleware=True,
     use_test_urls=True,
 ).settings
 
