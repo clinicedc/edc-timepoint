@@ -1,10 +1,12 @@
+_version.py
 django_crypto_fields
 .settings
 .project
 .pydevproject
 test-*
 db.sqlite3
-
+.etc
+.env
 
 # Swap
 [._]*.s[a-v][a-z]
