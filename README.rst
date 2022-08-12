@@ -5,7 +5,7 @@ edc-timepoint
 
 Lock a "timepoint" from further editing once data is cleaned and reviewed.
 
-With module ``edc_timepoint`` a data manager or supervisor is able to flag a model instance, that represents a timepoint, as closed to further edit. A good candidate for a "timepoint" model is one that is used to cover other data collection, such as an `edc_appointment.Appointment`. When the appointment status is set to something like 'complete' the timepoint status is set to ``closed`` and no further edits are allowed for data covered by that appointment. 
+With module ``edc_timepoint`` a data manager or supervisor is able to flag a model instance, that represents a timepoint, as closed to further edit. A good candidate for a "timepoint" model is one that is used to cover other data collection, such as an `edc_appointment.Appointment`. When the appointment status is set to something like 'complete' the timepoint status is set to ``closed`` and no further edits are allowed for data covered by that appointment.
 
 
 Configuring the Timepoint Model
@@ -17,7 +17,7 @@ Select a model that represent a timepoint. The model should at least have a `dat
 .. code-block:: python
 
     class Appointment(TimepointModelMixin, BaseUuidModel):
-    
+
         appt_datetime = models.DateTimeField(
             verbose_name='Appointment date and time')
 
@@ -36,14 +36,14 @@ In your projects ``apps.py`` subclass ``edc_timepoint.apps.AppConfig`` and decla
 .. code-block:: python
 
     from django.apps import AppConfig as DjangoAppConfig
-    
+
     from edc_timepoint.apps import AppConfig as EdcTimepointAppConfigParent
     from edc_timepoint.timepoint import Timepoint
-    
-    
+
+
     class AppConfig(DjangoAppConfig):
         name = 'example'
-    
+
     class EdcTimepointAppConfig(EdcTimepointAppConfigParent):
         timepoints = TimepointCollection(
             timepoints=[Timepoint(
@@ -51,7 +51,7 @@ In your projects ``apps.py`` subclass ``edc_timepoint.apps.AppConfig`` and decla
                 datetime_field='appt_datetime',
                 status_field='appt_status',
                 closed_status='DONE')])
-        
+
 The user updates the ``Appointment`` normally closing it when the appointment is done. Then a data manager or supervisor can close the ``Appointment`` to further edit once the data has been reviewed.
 
 To close the ``Appointment`` to further edit the code needs to call the ``timepoint_close_timepoint`` method:
@@ -61,9 +61,9 @@ To close the ``Appointment`` to further edit the code needs to call the ``timepo
     appointment = Appointment.objects.create(**options)
     appointment.appt_status = 'DONE'
     appointment.timepoint_close_timepoint()
-    
+
 If the ``appointment.appt_status`` is not ``DONE`` when ``timepoint_close_timepoint`` is called, a ``TimepointError`` is raised.
-    
+
 If the appointment is successfully closed to further edit, any attempts to call ``appointment.save()`` will raise a ``TimepointError``.
 
 The ``Appointment`` may be re-opened for edit by calling method ``timepoint_open_timepoint``.
@@ -83,24 +83,24 @@ For example:
         timepoint_related_model_lookup = 'appointment'
 
     class VisitModel(TimepointLookupModelMixin, BaseUuidModel):
-    
+
         timepoint_lookup_cls = VisitTimepointLookup
-    
+
         appointment = models.ForeignKey(Appointment)
-    
+
         report_datetime = models.DateTimeField(
             default=timezone.now)
 
-If the timepoint model's ``timepoint_status`` is ``closed``, any attempt to create or modify ``VisitModel`` will raise a ``TimepointClosed`` exception. 
+If the timepoint model's ``timepoint_status`` is ``closed``, any attempt to create or modify ``VisitModel`` will raise a ``TimepointClosed`` exception.
 
 
 
 .. |pypi| image:: https://img.shields.io/pypi/v/edc-timepoint.svg
     :target: https://pypi.python.org/pypi/edc-timepoint
-    
+
 .. |actions| image:: https://github.com/clinicedc/edc-timepoint/workflows/build/badge.svg?branch=develop
   :target: https://github.com/clinicedc/edc-timepoint/actions?query=workflow:build
-    
+
 .. |codecov| image:: https://codecov.io/gh/clinicedc/edc-timepoint/branch/develop/graph/badge.svg
   :target: https://codecov.io/gh/clinicedc/edc-timepoint
 
