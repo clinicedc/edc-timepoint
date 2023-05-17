@@ -38,6 +38,7 @@ DEFAULT_SETTINGS = DefaultTestSettings(
         "edc_visit_schedule.apps.AppConfig",
         "edc_protocol.apps.AppConfig",
         "edc_consent.apps.AppConfig",
+        "edc_list_data.apps.AppConfig",
         "edc_metadata.apps.AppConfig",
         "edc_reference.apps.AppConfig",
         "edc_registration.apps.AppConfig",
