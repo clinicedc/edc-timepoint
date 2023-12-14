@@ -98,8 +98,8 @@ If the timepoint model's ``timepoint_status`` is ``closed``, any attempt to crea
 .. |pypi| image:: https://img.shields.io/pypi/v/edc-timepoint.svg
     :target: https://pypi.python.org/pypi/edc-timepoint
 
-.. |actions| image:: https://github.com/clinicedc/edc-timepoint/workflows/build/badge.svg?branch=develop
-  :target: https://github.com/clinicedc/edc-timepoint/actions?query=workflow:build
+.. |actions| image:: https://github.com/clinicedc/edc-timepoint/actions/workflows/build.yml/badge.svg
+  :target: https://github.com/clinicedc/edc-timepoint/actions/workflows/build.yml
 
 .. |codecov| image:: https://codecov.io/gh/clinicedc/edc-timepoint/branch/develop/graph/badge.svg
   :target: https://codecov.io/gh/clinicedc/edc-timepoint
